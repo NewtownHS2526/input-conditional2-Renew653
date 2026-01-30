@@ -23,9 +23,9 @@
 //   3. The status message area (id="status")
 // --------------------------------------------
 
-const textBox = 
-const outputBox = 
-const statusBox = 
+const textBox = document.querySelector("#user-input");
+const outputBox = document.querySelector("#quiz-inputs");
+const statusBox = document.querySelector("#status");
 
 // This console.log helps us verify our selections worked correctly.
 // Open the browser's Developer Tools (F12) to see the output.
@@ -43,8 +43,8 @@ console.log(textBox, outputBox, statusBox);
 //   2. A "bonus" variable (boolean) initialized to false
 // --------------------------------------------
 
-let score = 
-let champlain = 
+let score = 0;
+let champlain = false;
 
 // --------------------------------------------
 // STEP 3: CREATE THE ANSWER-CHECKING FUNCTION
@@ -73,21 +73,27 @@ const checkAnswer = () => {
   //   - Display an error message in the statusBox
 
   if (currentAnswer === "Lake Superior" || currentAnswer === "Superior") {
-
+    score += 1;
+    `<h3>Lake Superior is so massive that it contains 10% of all the Earth's surface fresh water!</h3>`
   } else if (currentAnswer === "Lake Michigan" || currentAnswer === "Michigan") {
-   
+    score += 1;
+    `<h3>Lake Michigan is the only one of the five Great Lakes located entirely within the United States!</h3>`
   } else if (currentAnswer === "Lake Huron" || currentAnswer === "Huron") {
-  
+    score += 1;
+    `<h3>Lake Huron has the longest shoreline of all the Great Lakes!</h3>`
   } else if (currentAnswer === "Lake Erie" || currentAnswer === "Erie") {
-    
+    score += 1;
+    `<h3>Lake Erie is the shallowest and smallest by volume</h3>`
   } else if (currentAnswer === "Lake Ontario" || currentAnswer === "Ontario") {
-
+    score += 1;
+    `<h3>it holds four times more water than Lake Erie!</h3>`
   } else if (currentAnswer === "Lake Champlain" || currentAnswer === "Champlain") {
     // Secret bonus answer!
-  
+    score += 1;
+    `<h3>BONUS</h3>`
   } else {
     // If no conditions match, show an error message
-    
+    statusBox.value = "Incorrect"
   }
 
   // After checking the answer, verify if the game is complete
@@ -111,12 +117,16 @@ const checkAnswer = () => {
 
 const checkScore = () => {
   if (score === 5) {
- 
+     statusBox.value = "Winner"
   }
   if (score === 5 && champlain) {
     
     // Disable the text box since the game is complete
-    
+    function disableTextbox() {
+  const inputElement = document.getElementById("myTextBox");
+  inputElement.disabled = true;
+}
+
   }
 };
 
@@ -137,4 +147,4 @@ const checkScore = () => {
 //   - Listens for the "change" event
 //   - Calls the checkAnswer function when triggered
 // --------------------------------------------
-
+textBox.addEventListener("change", checkAnswer);
